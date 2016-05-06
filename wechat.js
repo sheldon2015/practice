@@ -1,5 +1,3 @@
-
-
 $(function () {
     var place = {
         "province": [
@@ -14775,112 +14773,83 @@ $(function () {
             ]
         }
     }
-
     // 初始化province
-
-    var province = place.province;
+    var province = place.province;//得到省
     var province_list = [];
     var province_el = document.querySelector(".province");
     province.forEach(function (el) {
-        province_list.push(//110000
+        province_list.push(//省的id    110000
             `<li id=${el.id}>${el.name}</li >`
         )
-
     });
     $(province_el).html(province_list.join(""));
-
-
     //切换城市赋值
+    //选择的地点
+    var name = [];
     var city_el = document.querySelector(".city");
     var $slected_province;
-
     $(province_el).on('click', 'li', function (e) {
         e.stopPropagation();
         !$slected_province || $slected_province.removeClass('selected');
         $(this).addClass('selected');
         $slected_province = $(this)
-
         var city_list = [];
         var id = this.getAttribute("id");// 省的id  110000
-        var city = place.city[id];
+        var city = place.city[id];//有省的id，拿到城市
 
         city_list.push(//省的id 110000
-            `<li  id=${id}  class='default'>全部</li >`
+            `<li id=${id} class='default'>全部</li >`
         )
         city.forEach(function (el) {
-            city_list.push(//市的id   110100
-                `<li id=${el.id}>${el.name}</li >`
+            city_list.push(// 省的id: parentId，市的id:el.id   110100
+                `<li parentId=${id} id=${el.id}>${el.name}</li >`
             )
-
         });
         $(city_el).html(city_list.join(""));
         $(district_el).html('');
-
     })
 
     //切换地区赋值
-    //选择的地点
-    var name = [];
+
     var district_el = document.querySelector(".district");
     var $slected_city;
     $(city_el).on('click', 'li', function (e) {
-
         e.stopPropagation();
         !$slected_city || $slected_city.removeClass('selected');
         $(this).addClass('selected');
         $slected_city = $(this)
-
-
         var district_list = [];
-        var id = this.getAttribute("id");
+        var id = this.getAttribute("id");//点击default为省id，其他为市id
         var district = place.district[id];
-
         //district有值且不为[]
         if (district && district.length != 0) {
-
             district_list.push(
-                `<li id=${id}  class='default'>全部</li >`//市的id
+                `<li id=${id} class='default'>全部</li >`//市的id
             )
             district.forEach(function (el) {
-                district_list.push(
-                    `<li id=${el.id}>${el.name}</li >`//区的id
+                district_list.push(// 市的id:parentId，区的id:el.id
+                    `<li parentId=${id} id=${el.id}>${el.name}</li >`//区的id
                 )
             });
         }
         $(district_el).html(district_list.join(""));
     })
-
     $(district_el).on('click', 'li', function (e) {
-
         e.stopPropagation();
-
         $(this).addClass('selected');
-
         if (name.indexOf($(this).text()) == -1) {
             name.push($(this).text());
         }
-
         $('.location').html(name.join(''));
-
-
     })
-
-
-
 
     //点击列表头，list显示
     var $head = $('.head');
     $head.on('click', function (e) {
         e.stopPropagation();
         $(this).next().show();
-
-
-
     })
-
-    //点击空白处，首期list
-
-
+    //点击空白处，收起list
     $('.modal-section').on('click', function (e) {
         if ($('.province,.city,.district').is(':visible')) {
             $('.province,.city,.district').hide();
@@ -14888,7 +14857,6 @@ $(function () {
             $(city_el).html('');
             $(district_el).html('');
         }
-
     })
 
 
