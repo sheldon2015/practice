@@ -14779,9 +14779,13 @@ $(function () {
     var province_el = document.querySelector(".province");
     province.forEach(function (el) {
         province_list.push(//省的id    110000
-            `<li id=${el.id}>${el.name}</li >`
+            `<li
+                data-provinceName=${el.name}
+                id=${el.id}>
+                ${el.name}
+             </li >`
         )
-    });
+    }, this);
     $(province_el).html(province_list.join(""));
     //切换城市赋值
     //选择的地点
@@ -14796,51 +14800,226 @@ $(function () {
         var city_list = [];
         var id = this.getAttribute("id");// 省的id  110000
         var city = place.city[id];//有省的id，拿到城市
-
         city_list.push(//省的id 110000
-            `<li id=${id} class='default'>全部</li >`
+            `<li
+                id=${id}
+                data-provinceName=${this.getAttribute('data-provinceName')}
+                class='default'>
+                全部
+            </li >`
         )
         city.forEach(function (el) {
-            city_list.push(// 省的id: parentId，市的id:el.id   110100
-                `<li parentId=${id} id=${el.id}>${el.name}</li >`
+            city_list.push(// 省的id:parentId，市的id:el.id   110100
+                `<li
+                    parentId=${id}
+                    data-provinceName=${this.getAttribute('data-provinceName')}
+                    data-cityName=${el.name}
+                    id=${el.id}>
+                    ${el.name}
+                </li >`
             )
-        });
+        }, this);
         $(city_el).html(city_list.join(""));
         $(district_el).html('');
     })
 
     //切换地区赋值
-
     var district_el = document.querySelector(".district");
     var $slected_city;
     $(city_el).on('click', 'li', function (e) {
         e.stopPropagation();
         !$slected_city || $slected_city.removeClass('selected');
         $(this).addClass('selected');
-        $slected_city = $(this)
+        $slected_city = $(this);
+        var flag = false;//查找是否存在覆盖
+        if (this.textContent.trim() == '全部') {
+            name.forEach(function (el) {
+                //比如湖北省去覆盖下面的
+                //覆盖 1.湖北省 武汉市 汉口
+                //覆盖 2.湖北省  武汉市
+                if (el.provinceId == this.getAttribute('id')) {
+                    el.value = this.getAttribute('data-provinceName');
+                    el.cityId = null;
+                    el.districtId = null;
+                    flag = true;
+                }
+            }, this);
+            if (!flag) {
+                //不覆盖的情况
+                name.push({
+                    provinceId: this.getAttribute('id'),
+                    cityId: null,
+                    districtId: null,
+                    value: this.getAttribute('data-provinceName')
+                });
+            }
+            var names = [];
+            name.forEach(function (el) {
+                if (names.indexOf(el.value) == -1) {
+                    names.push(el.value)
+                }
+            })
+            $('.location').html(names.join(''));
+        }
         var district_list = [];
-        var id = this.getAttribute("id");//点击default为省id，其他为市id
+        var id = this.getAttribute("id");//点击为市id
         var district = place.district[id];
         //district有值且不为[]
         if (district && district.length != 0) {
-            district_list.push(
-                `<li id=${id} class='default'>全部</li >`//市的id
+            district_list.push(//parentId省的id, id市的id
+                `<li
+
+                    parentId=${this.getAttribute('parentId')}
+
+                    id=${id}
+
+                    data-cityName=${this.getAttribute('data-cityName')}
+
+                    class='default'>
+
+                    全部
+
+                </li >`//市的id
             )
             district.forEach(function (el) {
                 district_list.push(// 市的id:parentId，区的id:el.id
-                    `<li parentId=${id} id=${el.id}>${el.name}</li >`//区的id
+                    `<li
+                        grandParentId=${this.getAttribute('parentId')}
+
+                        parentId=${id}
+
+                        data-districtName=${el.name}
+
+                        id=${el.id}>
+
+                        ${el.name}
+
+                    </li >`//区的id
                 )
-            });
+            }, this);
+            $(district_el).html(district_list.join(""));
+        } else {
+            name.forEach(function (el) {
+                if (el.provinceId == this.getAttribute('parentId')
+                    && el.cityId == this.getAttribute('id')) {
+                    el.value = this.getAttribute('data-provinceName');
+                    el.districtId = null;
+                    flag = true;
+                }
+                else if (el.provinceId == this.getAttribute('parentId')
+                    && !el.cityId) {
+                    el.value = this.getAttribute('data-provinceName');
+                    el.cityId == this.getAttribute('id');
+                    el.districtId = null;
+                    flag = true;
+                }
+            }, this);
+            if (!flag) {
+                //不覆盖的情况
+                name.push({
+                    provinceId: this.getAttribute('parentId'),
+                    cityId: this.getAttribute('id'),
+                    districtId: null,
+                    value: this.getAttribute('data-provinceName')
+                });
+            }
+            var names = [];
+            name.forEach(function (el) {
+                if (names.indexOf(el.value) == -1) {
+                    names.push(el.value)
+                }
+            })
+            $('.location').html(names.join(''));
         }
-        $(district_el).html(district_list.join(""));
+
     })
     $(district_el).on('click', 'li', function (e) {
         e.stopPropagation();
-        $(this).addClass('selected');
-        if (name.indexOf($(this).text()) == -1) {
-            name.push($(this).text());
+        if (this.textContent.trim() == '全部') {
+            $(this).siblings().removeClass('selected');
+        } else {
+            $(this).siblings('.default').removeClass('selected');
         }
-        $('.location').html(name.join(''));
+        $(this).addClass('selected');
+        var flag = false;//查找是否存在覆盖
+        if (this.textContent.trim() == '全部') {
+            //比如   湖北省 武汉市 去覆盖下面的
+            //覆盖 1.湖北省 武汉市 汉口
+            //覆盖 2.湖北省
+            name.forEach(function (el) {
+                //覆盖 三级地区的情况
+                if (el.provinceId == this.getAttribute('parentId') &&
+                    el.cityId == this.getAttribute('id')) {
+                    el.value = this.getAttribute('data-cityName');
+                    el.districtId = null;
+                    flag = true;
+                    //覆盖一级区域的情况
+                } else if (el.provinceId == this.getAttribute('parentId')
+                    && !el.cityId) {
+                    el.value = this.getAttribute('data-cityName');
+                    el.cityId == this.getAttribute('id');
+                    el.districtId = null;
+                    flag = true;
+                }
+            }, this);
+            if (!flag) {
+                //不覆盖的情况
+                name.push({
+                    provinceId: this.getAttribute('parentId'),
+                    cityId: this.getAttribute('id'),
+                    districtId: null,
+                    value: this.getAttribute('data-cityName')
+                });
+            }
+
+        } else {
+            //比如   湖北省 武汉市 武昌 去覆盖下面的
+            //覆盖 1.湖北省 武汉市
+            //覆盖 2.湖北省
+            name.forEach(function (el) {
+                //覆盖三级地区的情况
+                if (el.provinceId == this.getAttribute('grandParentId') &&
+                    el.cityId == this.getAttribute('parentId') &&
+                    el.districtId == this.getAttribute('id')
+                ) {
+                    el.value = this.getAttribute('data-districtName');
+                    flag = true;
+                    // //覆盖 二级地区的情况
+                } else if (el.provinceId == this.getAttribute('grandParentId') &&
+                    el.cityId == this.getAttribute('parentId') &&
+                    !el.districtId
+                ) {
+                    el.value = this.getAttribute('data-districtName');
+                    el.districtId = this.getAttribute('id');
+                    flag = true;
+                    //覆盖一级区域的情况
+                } else if (el.provinceId == this.getAttribute('grandParentId')
+                    && !el.cityId
+                    && !el.districtId
+                ) {
+                    el.cityId == this.getAttribute('parentId')
+                    el.districtId = this.getAttribute('id');
+                    el.value = this.getAttribute('data-districtName');
+                    flag = true;
+                }
+            }, this);
+            if (!flag) {
+                //不覆盖的情况
+                name.push({
+                    provinceId: this.getAttribute('grandParentId'),
+                    cityId: this.getAttribute('parentId'),
+                    districtId: this.getAttribute('id'),
+                    value: this.getAttribute('data-districtName')
+                });
+            }
+        }
+        var names = [];
+        name.forEach(function (el) {
+            if (names.indexOf(el.value) == -1) {
+                names.push(el.value)
+            }
+        })
+        $('.location').html(names.join(''));
     })
 
     //点击列表头，list显示
