@@ -14868,37 +14868,26 @@ $(function () {
         if (district && district.length != 0) {
             district_list.push(//parentId省的id, id市的id
                 `<li
-
                     parentId=${this.getAttribute('parentId')}
-
                     id=${id}
-
                     data-cityName=${this.getAttribute('data-cityName')}
-
                     class='default'>
-
                     全部
-
-                </li >`//市的id
+                </li >`
             )
             district.forEach(function (el) {
                 district_list.push(// 市的id:parentId，区的id:el.id
                     `<li
                         grandParentId=${this.getAttribute('parentId')}
-
                         parentId=${id}
-
                         data-districtName=${el.name}
-
                         id=${el.id}>
-
                         ${el.name}
-
-                    </li >`//区的id
+                    </li >`
                 )
             }, this);
             $(district_el).html(district_list.join(""));
-        } else {
+        } else if (!district && this.textContent.trim() != '全部') {
             name.forEach(function (el) {
                 if (el.provinceId == this.getAttribute('parentId')
                     && el.cityId == this.getAttribute('id')) {
