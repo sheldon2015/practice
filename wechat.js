@@ -14708,7 +14708,8 @@ $(function () {
     function _handeleArray(array) {
         var html_el = [];
         array.forEach(function (el) {
-            html_el.push(`<div class='item'>
+            html_el.push(
+                `<div class='item'   data-value=${el}>
             ${el}
             <span class='cha'>×</span>
             </div>`);
@@ -14721,15 +14722,26 @@ $(function () {
 
         $(this).text().trim() == '保存' ? $(this).text("编辑") : $(this).text("保存");
         $('.location div').toggleClass('edit');
+        //删除
         $('.edit .cha').click(function (par) {
-            $(this).parent().remove();
+            var value = $(this).parent().remove().attr('data-value');
+            var temp = [];
+            name.forEach(function (el, index) {
+                if (el.value.trim() == value.trim()) {
+                    return;
+                } else {
+                    temp.push(el)
+                }
+            }, this);
+            name = temp;
         })
 
     })
 
 
-    //地区diqu
 
+
+    //地区diqu
     document.querySelector('.diqu').addEventListener('click', function (params) {
         $('.modal-section').show();
         $('.place-setion').hide();
