@@ -14703,8 +14703,6 @@ $(function () {
             ]
         }
     }
-
-
     function _handeleArray(array) {
         var html_el = [];
         array.forEach(function (el) {
@@ -14719,7 +14717,6 @@ $(function () {
     //编辑
 
     $('#edit').click(function (e) {
-
         $(this).text().trim() == '保存' ? $(this).text("编辑") : $(this).text("保存");
         $('.location div').toggleClass('edit');
         //删除
@@ -14735,12 +14732,7 @@ $(function () {
             }, this);
             name = temp;
         })
-
     })
-
-
-
-
     //地区diqu
     document.querySelector('.diqu').addEventListener('click', function (params) {
         $('.modal-section').show();
@@ -14758,8 +14750,6 @@ $(function () {
         $('.place-setion').show();
 
     }, false)
-
-
     // 初始化province
     var province = place.province;//得到省
     var province_list = [];
@@ -14773,7 +14763,6 @@ $(function () {
              </li >`
         )
     }, this);
-
     $(province_el).html(province_list.join(""));
     //切换城市赋值
     //选择的地点
@@ -14809,9 +14798,7 @@ $(function () {
         }, this);
         $(city_el).html(city_list.join("")).show();
         $(district_el).html('');
-
     })
-
     //切换地区赋值
     var district_el = document.querySelector(".district");
     var $slected_city;
@@ -14849,6 +14836,7 @@ $(function () {
                 }
             })
             $('.location').html(_handeleArray(names).join(''));
+            $(district_el).html('');
         }
         var district_list = [];
         var id = this.getAttribute("id");//点击为市id
@@ -14909,6 +14897,7 @@ $(function () {
                 }
             })
             $('.location').html(_handeleArray(names).join(''));
+            $(district_el).html('');
         }
 
     })
@@ -14999,10 +14988,7 @@ $(function () {
             }
         })
         $('.location').html(_handeleArray(names).join(''));
-
-
     })
-
     //点击列表头，list显示
     var $head = $('.head');
     $head.on('click', function (e) {
@@ -15014,7 +15000,6 @@ $(function () {
         }
         e.stopPropagation();
         $(this).next().show();
-
     })
     //点击空白处，收起list
     $('.modal-section').on('click', function (e) {
