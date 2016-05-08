@@ -14773,6 +14773,58 @@ $(function () {
             ]
         }
     }
+
+
+    function _handeleArray(array) {
+        var html_el = [];
+        array.forEach(function (el) {
+            html_el.push(`<div class='item'>
+            ${el}
+            <span class='cha'>×</span>
+            </div>`);
+        }, this);
+        return html_el;
+    }
+    //编辑
+
+    $('#edit').click(function (e) {
+
+        $(this).text().trim() == '确定' ? $(this).text("编辑") : $(this).text("确定");
+        $('.location div').toggleClass('edit');
+        $('.edit .cha').click(function (par) {
+            $(this).parent().remove();
+        })
+
+    })
+
+
+    //地区diqu
+
+    document.querySelector('.diqu').addEventListener('click', function (params) {
+        $('.modal-section').show();
+        $('.place-setion').hide();
+    }, false)
+
+    document.querySelector('#return').addEventListener('click', function (params) {
+        if ($('#edit').text().trim() == '确定') {
+            if (confirm("请确认修改")) {
+                $('#edit').click();
+            }
+            return;
+        }
+        $('.modal-section').click().hide();
+        $('.place-setion').show();
+        var temp = $('.location .item').text();
+        var arry = temp.split("×");
+        arry.pop();//去除最后一个空元素
+        var tpl = [];
+        arry.forEach(function (el) {
+            tpl.push(`<div  class='item'> ${el} </div>`);
+        }, this);
+        $('.diqu-jihe').html(tpl.join(''));
+    }, false)
+
+
     // 初始化province
     var province = place.province;//得到省
     var province_list = [];
@@ -14786,6 +14838,7 @@ $(function () {
              </li >`
         )
     }, this);
+
     $(province_el).html(province_list.join(""));
     //切换城市赋值
     //选择的地点
@@ -14819,8 +14872,9 @@ $(function () {
                 </li >`
             )
         }, this);
-        $(city_el).html(city_list.join(""));
+        $(city_el).html(city_list.join("")).show();
         $(district_el).html('');
+
     })
 
     //切换地区赋值
@@ -14859,7 +14913,7 @@ $(function () {
                     names.push(el.value)
                 }
             })
-            $('.location').html(names.join(''));
+            $('.location').html(_handeleArray(names).join(''));
         }
         var district_list = [];
         var id = this.getAttribute("id");//点击为市id
@@ -14886,7 +14940,8 @@ $(function () {
                     </li >`
                 )
             }, this);
-            $(district_el).html(district_list.join(""));
+            $(district_el).html(district_list.join(""))
+                .show();
         } else if (!district && this.textContent.trim() != '全部') {
             name.forEach(function (el) {
                 if (el.provinceId == this.getAttribute('parentId')
@@ -14918,7 +14973,7 @@ $(function () {
                     names.push(el.value)
                 }
             })
-            $('.location').html(names.join(''));
+            $('.location').html(_handeleArray(names).join(''));
         }
 
     })
@@ -15008,14 +15063,23 @@ $(function () {
                 names.push(el.value)
             }
         })
-        $('.location').html(names.join(''));
+        $('.location').html(_handeleArray(names).join(''));
+
+
     })
 
     //点击列表头，list显示
     var $head = $('.head');
     $head.on('click', function (e) {
+        if ($('#edit').text().trim() == '确定') {
+            if (confirm("请确认修改")) {
+                $('#edit').click();
+            }
+            return;
+        }
         e.stopPropagation();
         $(this).next().show();
+
     })
     //点击空白处，收起list
     $('.modal-section').on('click', function (e) {

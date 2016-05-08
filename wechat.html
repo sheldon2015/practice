@@ -12,32 +12,51 @@
 
 <body>
 
-    <div class='place-setion'>
-        地区选择
-    </div>
-    <div class='modal-section'>
-        <div class="top">
-            <h4>我的地区</h4>
-            <div class='location'> </div>
+    <div class='place-setion container'>
+
+        <div class='container text-right'>
+            <a class='diqu' ref="javascript:void(0)">查看</a>
         </div>
-        <div class='down'>
+        <div class='diqu-jihe clearfix'>
+
+        </div>
+
+
+
+    </div>
+    <div class='modal-section container'>
+        <div>
+            <a id='return' href="javascript:void(0)">
+                < 返回</a>
+        </div>
+        <div class="top  container">
+            <div class='clearfix'>
+                <h4 class='pull-left'>我的地区</h4>
+                <a id='edit' class='pull-right' href="javascript:void(0)">编辑</a>
+            </div>
+            <div class='location'>
+
+            </div>
+        </div>
+        <div class='down  container'>
             <h4>地区选择</h4>
             <div class='place-select'>
                 <div class='item'>
-                    <div class='head'>省份</div>
+                    <div class='head text-center'>省份</div>
                     <ul class='list-unstyled province'></ul>
                 </div>
                 <div class='item'>
-                    <div class='head'>城市</div>
+                    <div class='head text-center'>城市</div>
                     <ul class='list-unstyled   city'></ul>
                 </div>
-                <div class='item'> 
-                    <div class='head'>地区</div>
-                    <ul class='list-unstyled district'> </ul> 
+                <div class='item'>
+                    <div class='head text-center'>地区</div>
+                    <ul class='list-unstyled district'> </ul>
                 </div>
             </div>
         </div>
     </div>
     <script src='./wechat.js'></script>
 </body>
+
 </html>
