@@ -14719,7 +14719,7 @@ $(function () {
 
     $('#edit').click(function (e) {
 
-        $(this).text().trim() == '确定' ? $(this).text("编辑") : $(this).text("确定");
+        $(this).text().trim() == '保存' ? $(this).text("编辑") : $(this).text("保存");
         $('.location div').toggleClass('edit');
         $('.edit .cha').click(function (par) {
             $(this).parent().remove();
@@ -14736,22 +14736,15 @@ $(function () {
     }, false)
 
     document.querySelector('#return').addEventListener('click', function (params) {
-        if ($('#edit').text().trim() == '确定') {
-            if (confirm("请确认修改")) {
+        if ($('#edit').text().trim() == '保存') {
+            if (confirm("请保存修改")) {
                 $('#edit').click();
             }
             return;
         }
         $('.modal-section').click().hide();
         $('.place-setion').show();
-        var temp = $('.location .item').text();
-        var arry = temp.split("×");
-        arry.pop();//去除最后一个空元素
-        var tpl = [];
-        arry.forEach(function (el) {
-            tpl.push(`<div  class='item'> ${el} </div>`);
-        }, this);
-        $('.diqu-jihe').html(tpl.join(''));
+
     }, false)
 
 
@@ -15001,8 +14994,8 @@ $(function () {
     //点击列表头，list显示
     var $head = $('.head');
     $head.on('click', function (e) {
-        if ($('#edit').text().trim() == '确定') {
-            if (confirm("请确认修改")) {
+        if ($('#edit').text().trim() == '保存') {
+            if (confirm("请保存修改")) {
                 $('#edit').click();
             }
             return;

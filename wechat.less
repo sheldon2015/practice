@@ -1,5 +1,7 @@
 @border-color: rgba(0, 0, 0, 0.26);
 @blue: #337ab7;
+@red: red;
+@green: green;
 
 a {
   text-decoration: none !important;
@@ -12,17 +14,18 @@ body {
 .place-setion {
   padding: 15px;
 
-  .diqu-jihe {
-    border: 1px solid @border-color;
-    min-height: 40px;
+  .diqu {
+    color: @red;
+    background: @border-color;
+    padding: 2px 10px;
+    border-radius: 5px;
+  }
 
-    .item {
-      padding: 2px 5px;
-      margin: 6px 10px;
-      display: table-cell;
-      border: 1px solid @border-color;
-      float: left;
-    }
+  .chakan {
+    background: @green;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 5px;
   }
 }
 
@@ -40,7 +43,7 @@ body {
   .city,
   .district {
     height: 320px;
-    display: none;   
+    display: none;
     overflow: scroll;
     margin-bottom: 0;
 
@@ -92,8 +95,7 @@ body {
   }
 
   .down {
-     min-height: 320px;
-   
+    min-height: 320px;
     border: 1px solid @border-color;
     overflow: hidden;
   }
