@@ -378,12 +378,12 @@ $(function () {
             //比如   湖北省 武汉市 去覆盖下面的
             //覆盖 1.湖北省 武汉市 汉口
             //覆盖 2.湖北省
-            name.forEach(function (el) {
+            name.forEach(function (el,index) {
                 //覆盖 三级地区的情况
                 if (el.provinceId == this.getAttribute('parentId') &&
                     el.cityId == this.getAttribute('id')) {
-                    el.value = this.getAttribute('data-cityName');
-                    el.districtId = null;
+                    $(this).removeClass('selected');
+                    name.splice(index, 1);
                     flag = true;
                     //覆盖一级区域的情况
                 } else if (el.provinceId == this.getAttribute('parentId')
@@ -408,13 +408,15 @@ $(function () {
             //比如   湖北省 武汉市 武昌 去覆盖下面的
             //覆盖 1.湖北省 武汉市
             //覆盖 2.湖北省
-            name.forEach(function (el) {
+            name.forEach(function (el, index) {
                 //覆盖三级地区的情况
                 if (el.provinceId == this.getAttribute('grandParentId') &&
                     el.cityId == this.getAttribute('parentId') &&
                     el.districtId == this.getAttribute('id')
                 ) {
-                    el.value = this.getAttribute('data-districtName');
+
+                    $(this).removeClass('selected');
+                    name.splice(index, 1);
                     flag = true;
                     // //覆盖 二级地区的情况
                 } else if (el.provinceId == this.getAttribute('grandParentId') &&
