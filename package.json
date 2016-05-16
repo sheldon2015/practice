@@ -5,7 +5,6 @@
   "main": "jquery-1.9.1.min.js",
   "scripts": {
     "postcss": "postcss --use autoprefixer wechat.css",
-   
     "build": "babel wechat.js  --out-file wechat-compiled.js",
     "postbuild": "uglifyjs   wechat-compiled.js  -c -m -o   wechat-compiled.js"
   },
