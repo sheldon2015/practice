@@ -90,7 +90,8 @@ $(function () {
                     "id": 110229,
                     "name": "延庆县"
                 }
-            ],
+            ]
+            ,
             "120100": [
                 {
                     "id": 120101,
@@ -284,6 +285,7 @@ $(function () {
                     flag = true;
                 }
             }, this);
+            
             if (!flag) {
                 //不覆盖的情况
                 name.push({
@@ -329,17 +331,18 @@ $(function () {
             }, this);
             $(district_el).html(district_list.join(""))
                 .show();
+                
         } else if (!district && this.textContent.trim() != '全部') {
             name.forEach(function (el) {
                 if (el.provinceId == this.getAttribute('parentId')
                     && el.cityId == this.getAttribute('id')) {
-                    el.value = this.getAttribute('data-provinceName');
+                    el.value = this.getAttribute('data-cityName');
                     el.districtId = null;
                     flag = true;
                 }
                 else if (el.provinceId == this.getAttribute('parentId')
                     && !el.cityId) {
-                    el.value = this.getAttribute('data-provinceName');
+                    el.value = this.getAttribute('data-cityName');
                     el.cityId == this.getAttribute('id');
                     el.districtId = null;
                     flag = true;
@@ -351,7 +354,7 @@ $(function () {
                     provinceId: this.getAttribute('parentId'),
                     cityId: this.getAttribute('id'),
                     districtId: null,
-                    value: this.getAttribute('data-provinceName')
+                    value: this.getAttribute('data-cityName')
                 });
             }
             var names = [];
