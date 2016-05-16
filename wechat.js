@@ -208,19 +208,20 @@ $(function () {
         $('.place-setion').show();
         var names = [];
         name.forEach(function (el, index) {
-            if (names.indexOf(el) == -1) {
-                names.push({
-                    value: el.value,
-                    id: el.districtId || el.cityId || el.provinceId
-                })
-            }
+            names.push({
+                value: el.value,
+                id: el.districtId || el.cityId || el.provinceId
+            })
         });
+
         + function () {
             var nameArr = [], idArr = [];
 
             names.forEach(function (el, index) {
-                nameArr.push(el.value);
-                idArr.push(el.id);
+                if (nameArr.indexOf(el.value) == -1 && idArr.indexOf(el.id) == -1) {
+                    nameArr.push(el.value);
+                    idArr.push(el.id);
+                }
                 if (index == names.length - 1) {
                     document.querySelector('.location-place').innerHTML = nameArr.join(',');
                     document.querySelector('.location-place').setAttribute('id', idArr.join(','));
@@ -311,18 +312,21 @@ $(function () {
             }
             var names = [];
             name.forEach(function (el) {
-                if (names.indexOf(el) == -1) {
-                    names.push({
-                        value: el.value,
-                        id: el.districtId || el.cityId || el.provinceId
-                    })
-                }
+
+                names.push({
+                    value: el.value,
+                    id: el.districtId || el.cityId || el.provinceId
+                })
+
             });
 
             + function () {
                 var nameArr = [];
                 names.forEach(function (el, index) {
-                    nameArr.push(el.value);
+
+                    if (nameArr.indexOf(el.value) == -1) {
+                        nameArr.push(el.value);
+                    }
                     if (index == names.length - 1) {
                         $('.location').html(_handeleArray(nameArr).join(''));
                     }
@@ -385,17 +389,19 @@ $(function () {
             }
             var names = [];
             name.forEach(function (el) {
-                if (names.indexOf(el) == -1) {
-                    names.push({
-                        value: el.value,
-                        id: el.districtId || el.cityId || el.provinceId
-                    })
-                }
+
+                names.push({
+                    value: el.value,
+                    id: el.districtId || el.cityId || el.provinceId
+                })
+
             });
             + function () {
                 var nameArr = [];
                 names.forEach(function (el, index) {
-                    nameArr.push(el.value);
+                    if (nameArr.indexOf(el.value) == -1) {
+                        nameArr.push(el.value);
+                    }
                     if (index == names.length - 1) {
                         $('.location').html(_handeleArray(nameArr).join(''));
                     }
@@ -488,18 +494,20 @@ $(function () {
         }
         var names = [];
         name.forEach(function (el) {
-            if (names.indexOf(el) == -1) {
-                names.push({
-                    value: el.value,
-                    id: el.districtId || el.cityId || el.provinceId
-                })
-            }
+
+            names.push({
+                value: el.value,
+                id: el.districtId || el.cityId || el.provinceId
+            })
+
         });
 
         + function () {
             var nameArr = [];
             names.forEach(function (el, index) {
-                nameArr.push(el.value);
+                if (nameArr.indexOf(el.value) == -1) {
+                    nameArr.push(el.value);
+                }
                 if (index == names.length - 1) {
                     $('.location').html(_handeleArray(nameArr).join(''));
                 }
