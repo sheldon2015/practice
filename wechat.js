@@ -160,19 +160,44 @@ $(function () {
         }
     }
     function _handeleArray(array) {
-        var html_el = [];
+        var html_el = []
         array.forEach(function (el) {
             html_el.push(
                 `
-             <div class='item' data-value=${el}>
+              <div class='item' data-value=${el}>
              ${el}
              <span class='cha'>×</span>
              </div>
              `
             )
         }, this)
-        return html_el;
+        return html_el
     }
+
+
+    function setValue() {
+
+        var names = [];
+        name.forEach(function (el) {
+            names.push({
+                value: el.value,
+                id: el.districtId || el.cityId || el.provinceId
+            })
+        });
+        + function () {
+            var nameArr = []
+            names.forEach(function (el, index) {
+                if (nameArr.indexOf(el.value) == -1) {
+                    nameArr.push(el.value)
+                }
+                if (index == names.length - 1) {
+                    $('.location').html(_handeleArray(nameArr).join(''))
+                }
+            })
+        } ();
+
+    }
+
     // 编辑
     $('#edit').click(function (e) {
         $(this).text().trim() == '保存' ? $(this).text('编辑') : $(this).text('保存')
@@ -183,30 +208,40 @@ $(function () {
             var temp = []
             name.forEach(function (el, index) {
                 if (el.value.trim() == value.trim()) {
-                    return;
+                    return
                 } else {
-                    temp.push(el);
+                    temp.push(el)
                 }
             }, this)
-            name = temp;
+            name = temp
         })
     })
     // 地区diqu
     document.querySelector('.diqu').addEventListener('click', function (params) {
         $('.modal-section').show();
         $('.place-setion').hide();
+        //初始化
+        name = [
+            {
+                "provinceId": "120000",
+                "cityId": null,
+                "districtId": null,
+                "value": "天津"
+            }
+        ];
+        setValue();
     }, false)
 
     document.querySelector('#return').addEventListener('click', function (params) {
         if ($('#edit').text().trim() == '保存') {
             if (confirm('请保存修改')) {
-                $('#edit').click();
+                $('#edit').click()
             }
             return
         }
-        $('.modal-section').click().hide();
-        $('.place-setion').show();
-        var names = [];
+        $('.modal-section').click().hide()
+        $('.place-setion').show()
+        var names = []
         name.forEach(function (el, index) {
             names.push({
                 value: el.value,
@@ -215,21 +250,20 @@ $(function () {
         });
 
         + function () {
-            var nameArr = [], idArr = [];
+            var nameArr = [], idArr = []
 
             names.forEach(function (el, index) {
                 if (nameArr.indexOf(el.value) == -1 && idArr.indexOf(el.id) == -1) {
-                    nameArr.push(el.value);
-                    idArr.push(el.id);
+                    nameArr.push(el.value)
+                    idArr.push(el.id)
                 }
                 if (index == names.length - 1) {
-                    document.querySelector('.location-place').innerHTML = nameArr.join(',');
-                    document.querySelector('.location-place').setAttribute('id', idArr.join(','));
+                    document.querySelector('.location-place').innerHTML = nameArr.join(',')
+                    document.querySelector('.location-place').setAttribute('id', idArr.join(','))
                 }
             })
-        } ();
-
-    }, false);
+        } ()
+    }, false)
     // 初始化province
     var province = place.province; // 得到省
     var province_list = []
@@ -242,13 +276,13 @@ $(function () {
                 ${el.name}
              </li >`
         )
-    }, this);
-    $(province_el).html(province_list.join(''));
+    }, this)
+    $(province_el).html(province_list.join(''))
     // 切换城市赋值
     // 选择的地点
-    var name = [];
-    var city_el = document.querySelector('.city');
-    var $slected_province;
+    var name = []
+    var city_el = document.querySelector('.city')
+    var $slected_province
     $(province_el).on('click', 'li', function (e) {
         e.stopPropagation()
         !$slected_province || $slected_province.removeClass('selected')
@@ -276,8 +310,8 @@ $(function () {
                 </li >`
             )
         }, this)
-        $(city_el).html(city_list.join('')).show();
-        $(district_el).html('');
+        $(city_el).html(city_list.join('')).show()
+        $(district_el).html('')
     })
     // 切换地区赋值
     var district_el = document.querySelector('.district')
@@ -309,33 +343,11 @@ $(function () {
                     districtId: null,
                     value: this.getAttribute('data-provinceName')
                 })
-            }
-            var names = [];
-            name.forEach(function (el) {
-
-                names.push({
-                    value: el.value,
-                    id: el.districtId || el.cityId || el.provinceId
-                })
-
-            });
-
-            + function () {
-                var nameArr = [];
-                names.forEach(function (el, index) {
-
-                    if (nameArr.indexOf(el.value) == -1) {
-                        nameArr.push(el.value);
-                    }
-                    if (index == names.length - 1) {
-                        $('.location').html(_handeleArray(nameArr).join(''));
-                    }
-                })
-            } ();
-
+            };
+            setValue();
             $(district_el).html('')
         }
-        var district_list = [];
+        var district_list = []
         var id = this.getAttribute('id'); // 点击为市id
         var district = place.district[id]
         // district有值且不为[]
@@ -366,16 +378,16 @@ $(function () {
             name.forEach(function (el) {
                 if (el.provinceId == this.getAttribute('parentId')
                     && el.cityId == this.getAttribute('id')) {
-                    el.value = this.getAttribute('data-cityName')
-                    el.districtId = null
-                    flag = true
+                    el.value = this.getAttribute('data-cityName');
+                    el.districtId = null;
+                    flag = true;
                 }
                 else if (el.provinceId == this.getAttribute('parentId')
                     && !el.cityId) {
-                    el.value = this.getAttribute('data-cityName')
-                    el.cityId == this.getAttribute('id')
-                    el.districtId = null
-                    flag = true
+                    el.value = this.getAttribute('data-cityName');
+                    el.cityId == this.getAttribute('id');
+                    el.districtId = null;
+                    flag = true;
                 }
             }, this)
             if (!flag) {
@@ -385,31 +397,10 @@ $(function () {
                     cityId: this.getAttribute('id'),
                     districtId: null,
                     value: this.getAttribute('data-cityName')
-                })
+                });
             }
-            var names = [];
-            name.forEach(function (el) {
-
-                names.push({
-                    value: el.value,
-                    id: el.districtId || el.cityId || el.provinceId
-                })
-
-            });
-            + function () {
-                var nameArr = [];
-                names.forEach(function (el, index) {
-                    if (nameArr.indexOf(el.value) == -1) {
-                        nameArr.push(el.value);
-                    }
-                    if (index == names.length - 1) {
-                        $('.location').html(_handeleArray(nameArr).join(''));
-                    }
-                })
-            } ();
-
-
-            $(district_el).html('')
+            setValue();
+            $(district_el).html('');
         }
     })
     $(district_el).on('click', 'li', function (e) {
@@ -429,16 +420,16 @@ $(function () {
                 // 覆盖 三级地区的情况
                 if (el.provinceId == this.getAttribute('parentId') &&
                     el.cityId == this.getAttribute('id')) {
-                    el.value = this.getAttribute('data-cityName')
-                    el.districtId = null
-                    flag = true
+                    el.value = this.getAttribute('data-cityName');
+                    el.districtId = null;
+                    flag = true;
                     // 覆盖一级区域的情况
                 } else if (el.provinceId == this.getAttribute('parentId')
                     && !el.cityId) {
-                    el.value = this.getAttribute('data-cityName')
-                    el.cityId == this.getAttribute('id')
-                    el.districtId = null
-                    flag = true
+                    el.value = this.getAttribute('data-cityName');
+                    el.cityId == this.getAttribute('id');
+                    el.districtId = null;
+                    flag = true;
                 }
             }, this)
             if (!flag) {
@@ -448,7 +439,7 @@ $(function () {
                     cityId: this.getAttribute('id'),
                     districtId: null,
                     value: this.getAttribute('data-cityName')
-                })
+                });
             }
         } else {
             // 比如   湖北省 武汉市 武昌 去覆盖下面的
@@ -492,49 +483,31 @@ $(function () {
                 })
             }
         }
-        var names = [];
-        name.forEach(function (el) {
-
-            names.push({
-                value: el.value,
-                id: el.districtId || el.cityId || el.provinceId
-            })
-
-        });
-
-        + function () {
-            var nameArr = [];
-            names.forEach(function (el, index) {
-                if (nameArr.indexOf(el.value) == -1) {
-                    nameArr.push(el.value);
-                }
-                if (index == names.length - 1) {
-                    $('.location').html(_handeleArray(nameArr).join(''));
-                }
-            })
-        } ();
-
-
+        setValue();
     })
     // 点击列表头，list显示
     var $head = $('.head')
     $head.on('click', function (e) {
         if ($('#edit').text().trim() == '保存') {
             if (confirm('请保存修改')) {
-                $('#edit').click()
+                $('#edit').click();
             }
-            return
+            return;
         }
-        e.stopPropagation()
-        $(this).next().show()
+        e.stopPropagation();
+        $(this).next().show();
     })
     // 点击空白处，收起list
     $('.modal-section').on('click', function (e) {
         if ($('.province,.city,.district').is(':visible')) {
-            $('.province,.city,.district').hide()
-            $('.selected').removeClass('selected')
-            $(city_el).html('')
-            $(district_el).html('')
+            $('.province,.city,.district').hide();
+            $('.selected').removeClass('selected');
+            $(city_el).html('');
+            $(district_el).html('');
         }
     })
+
+
+
+
 })

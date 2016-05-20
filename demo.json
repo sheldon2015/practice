@@ -1,0 +1,20 @@
+[
+    {
+        "provinceId": "110000",
+        "cityId": null,
+        "districtId": null,
+        "value": "天津"
+    },
+    {
+        "provinceId": "110000",
+        "cityId": "110100",
+        "districtId": null,
+        "value": "天津市"
+    },
+    {
+        "provinceId": "110000",
+        "cityId": "110100",
+        "districtId": "110102",
+        "value": "河东区"
+    }
+]
