@@ -471,7 +471,7 @@ $(function () {
                     && !el.cityId
                     && !el.districtId
                 ) {
-                    el.cityId =this.getAttribute('parentId');
+                    el.cityId = this.getAttribute('parentId');
                     el.districtId = this.getAttribute('id');
                     el.value = this.getAttribute('data-districtName');
                     flag = true;
