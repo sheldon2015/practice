@@ -1,0 +1,141 @@
+@gray: #eeeaea;
+@blue: #337ab7;
+@white: white;
+
+body,
+html {
+    height: 100%;
+}
+
+.tab-heads {
+    height: 36px;
+    line-height: 36px;
+    display: flex;
+
+    a {
+        flex: 1;
+
+        margin: 0 5px;
+
+        border-radius: 5px;
+        background: @gray;
+
+        &.current {
+            background: @blue;
+            color: @white;
+        }
+
+    }
+}
+
+.content {
+    position: absolute;
+    top: 126px;
+    bottom: 40px;
+    width: 100%;
+    overflow: auto;
+}
+
+.shoucang {
+   
+
+    .option {
+        height: 30px;
+        line-height: 30px;
+        display: flex;
+
+        > * {
+            flex: 1;
+
+            margin: 0 5px;
+
+            border-radius: 5px;
+
+            &.current {
+                background: @blue;
+                color: @white;
+            }
+
+        }
+
+    }
+
+    .list {
+        margin: 20px 0;
+        background: @gray;
+
+        li {
+            padding: 5px 0 5px 10px;
+        }
+    }
+
+}
+
+.quanbu {
+    display: none;
+    width: 100%;
+
+    .item-city {
+        width: 50%;
+
+        a {
+            height: 30px;
+            line-height: 30px;
+            display: block;
+            background: @gray;
+            margin: 10px;
+            border-radius: 5px;
+
+        }
+
+    }
+}
+
+.shezhi {
+     display: none;
+    .handle {
+        display: flex;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+
+        a {
+            border-radius: 5px;
+            flex: 1;
+            margin: 0 10px;
+
+        }
+
+    }
+
+    .item {
+        padding: 10px;
+        background: @gray;
+        margin: 10px 0;
+
+        li {
+            padding: 10px 0;
+        }
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+
+    a {
+        border-radius: 5px;
+        flex: 1;
+        margin: 0 10px;
+        background: @blue;
+        color: @white;
+    }
+}
+
+.location {
+    margin: 10px 0;
+}
