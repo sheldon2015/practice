@@ -258,31 +258,31 @@
     <script src="./zepto.min.js"></script>
     <script>   
 
-    $(function(){
-        var $tabhead=$('.tab-heads a');
-        $tabhead.on('click',function(e){
-            var current=$tabhead.filter('.current').removeClass('current').data('target');
-            $(current).hide();
-            var target=$(this).addClass('current').data('target')
-            $(target).show();
+        $(function () {
+            var $tabhead = $('.tab-heads a');
+            $tabhead.on('click', function (e) {
+                var current = $tabhead.filter('.current').removeClass('current').data('target');
+                $(current).hide();
+                var target = $(this).addClass('current').data('target')
+                $(target).show();
+
+            })
+
+
+            $('.return').on('click', function () {
+                $('.content').scrollTop(0);
+            })
+
+
+
+
+
 
         })
 
 
-        $('.return').on('click',function(){
-            $('.content').scrollTop(0);
-        })
 
 
-
-
-
-
-    })
-    
-    
-    
-    
     </script>
 
 </body>

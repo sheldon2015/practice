@@ -1,13 +1,12 @@
 const gulp = require('gulp');
 const exec = require('child_process').exec;
+const zip = require('gulp-zip');
 const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
 
 gulp.task('less', (done) => {
     exec('lessc  -x zhaobiao.less  zhaobiao.css ', (err, stdout, stderr) => {
-        console.log('error', err);
-        console.log('stdout', stdout);
-        console.log('stderr', stderr);
+
         done();
     })
 })
@@ -18,7 +17,7 @@ gulp.task('less-watch', ['less'], (done) => {
     done();
 })
 
-gulp.task('default', function() {
+gulp.task('default', function () {
 
     browserSync.init({
         server: {
@@ -29,3 +28,11 @@ gulp.task('default', function() {
     gulp.watch('./*.less', ['less-watch'])
 });
 
+
+
+gulp.task('copy', (done) => {
+
+    return gulp.src(['zhaobiao.html', 'zepto.min.js', 'bootstrap.min.css', 'zhaobiao.css'])
+        .pipe(zip('webhua.zip'))
+        .pipe(gulp.dest('dist'))
+})

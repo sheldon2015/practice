@@ -2,7 +2,6 @@
 @blue: #337ab7;
 @red: red;
 @green: green;
-
 a {
     text-decoration: none !important;
 }
@@ -13,11 +12,9 @@ body {
 
 .place-setion {
     padding: 15px;
-
     .head-wrap {
         display: flex;
     }
-
     .location-place {
         flex: 1;
         overflow: hidden;
@@ -28,14 +25,12 @@ body {
         border: 1px solid @border-color;
         margin: 0 5px;
     }
-
     .diqu {
         color: @red;
         background: @border-color;
         padding: 2px 10px;
         border-radius: 5px;
     }
-
     .chakan {
         background: @green;
         color: white;
@@ -48,12 +43,10 @@ body {
     -webkit-overflow-scrolling: touch;
     padding: 15px;
     display: none;
-
     #return {
         padding: 10px 0;
         display: block;
     }
-
     .province,
     .city,
     .district {
@@ -61,22 +54,18 @@ body {
         display: none;
         overflow: scroll;
         margin-bottom: 0;
-
         li {
             padding: 5px 0 5px 5px;
         }
     }
-
     .top {
         min-height: 200px;
         border: 1px solid @border-color;
         margin-bottom: 20px;
-
         #edit {
             margin-top: 10px;
             padding: 5px 10px;
         }
-
         .location {
             .item {
                 padding: 2px 5px;
@@ -84,14 +73,11 @@ body {
                 display: table-cell;
                 border: 1px solid @border-color;
                 float: left;
-
                 .cha {
                     display: none;
                 }
-
                 &.edit {
                     position: relative;
-
                     span {
                         display: block;
                         position: absolute;
@@ -108,19 +94,16 @@ body {
             }
         }
     }
-
     .down {
         min-height: 320px;
         border: 1px solid @border-color;
         overflow: hidden;
     }
-
     .place-select {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
-
         .item {
             -webkit-box-flex: 1;
             -webkit-flex: 1;
@@ -128,7 +111,6 @@ body {
             flex: 1;
         }
     }
-
     .selected {
         background: rgba(128, 128, 128, 0.3);
         color: blue;
